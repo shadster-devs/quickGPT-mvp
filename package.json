@@ -1,68 +1,48 @@
 {
-  "name": "quickgpt",
+  "name": "electron-menubar-app",
   "version": "1.0.0",
-  "description": "A menubar app for quick access to various LLMs",
-  "main": "src/main.js",
-  "type": "module",
+  "description": "Electron React TypeScript Menubar App",
+  "main": "dist/main.js",
   "scripts": {
+    "build": "npm run build-main && npm run build-renderer",
+    "dev": "concurrently \"npm run build-main:watch\" \"npm run build-renderer:watch\" \"wait-on dist/main.js && electron .\"",
     "start": "electron .",
-    "dev": "electron . --dev",
-    "watch": "nodemon --exec electron . --watch src",
-    "build": "electron-builder",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "build-renderer": "webpack --mode production",
+    "build-renderer:watch": "webpack --mode development --watch",
+    "build-main": "tsc --project tsconfig.main.json",
+    "build-main:watch": "tsc --project tsconfig.main.json --watch"
   },
   "keywords": [
     "electron",
-    "menubar",
-    "chatgpt",
-    "gemini",
-    "claude",
-    "llm"
+    "react",
+    "typescript",
+    "menubar"
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "auto-launch": "^5.0.6",
-    "electron-localshortcut": "^3.2.1",
-    "electron-store": "^10.1.0",
-    "electron-updater": "^6.1.7",
-    "menubar": "^9.5.1"
-  },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "electron": "^28.2.0",
-    "electron-builder": "^24.9.1",
-    "electron-reload": "^2.0.0-alpha.1",
-    "nodemon": "^3.1.10",
-    "wait-on": "^7.2.0"
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "@babel/preset-react": "^7.22.0",
+    "@babel/preset-typescript": "^7.22.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "babel-loader": "^9.1.0",
+    "concurrently": "^8.2.0",
+    "css-loader": "^6.8.0",
+    "electron": "^25.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.0",
+    "typescript": "^5.1.0",
+    "wait-on": "^7.0.0",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.0"
   },
-  "build": {
-    "appId": "com.quickgpt.app",
-    "productName": "QuickGPT",
-    "mac": {
-      "category": "public.app-category.productivity",
-      "darkModeSupport": true,
-      "target": "dmg",
-      "icon": "build/icon.icns"
-    },
-    "dmg": {
-      "contents": [
-        {
-          "x": 130,
-          "y": 220
-        },
-        {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "publish": {
-      "provider": "github",
-      "releaseType": "release"
-    }
+  "dependencies": {
+    "lucide-react": "^0.525.0",
+    "menubar": "^9.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
